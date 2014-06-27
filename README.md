@@ -9,7 +9,7 @@ Sample code in C# and VB.NET demonstrates the use of Web Services to render pers
 
 You have to modify the URL and user credentials for your DSMI Server. For access to a test server please contact me.
 ```   
-   string server = "your server";
-   string username = "your username";
-   string password = "your password";
+string serviceUrl = "http://yourserver/dsmo/lb.asmx";
+string username = "your username";
+string password = "your password";
 ```
