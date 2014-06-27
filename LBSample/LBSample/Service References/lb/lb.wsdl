@@ -1,0 +1,2388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.directsmile.de/GenService/LB" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.directsmile.de/GenService/LB" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.directsmile.de/GenService/LB">
+      <s:element name="GetInterfaceVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInterfaceVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInterfaceVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInterfaceVersionExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInterfaceVersionExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInterfaceVersionExtResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Authenticate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Language" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDSMIAccounts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDSMIAccountsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDSMIAccountsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticateDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTags">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTagsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTagsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTagsAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTagsAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTagsAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTagsDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTagsDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTagsDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCatalog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="rType" type="tns:ContentTypeE" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:CatalogFilter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ContentTypeE">
+        <s:restriction base="s:string">
+          <s:enumeration value="Group" />
+          <s:enumeration value="ImageSet" />
+          <s:enumeration value="HTMLTemplate" />
+          <s:enumeration value="Document" />
+          <s:enumeration value="Any" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CatalogFilter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MatchingTags" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="GroupAlias" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SearchString" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncludeEmptyGroups" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="SkipVirtuelItems" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncludeMasterItems" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="SkipEmptyProperties" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncludeInvisibleItems" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCatalogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCatalogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCatalogAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="rType" type="tns:ContentTypeE" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:CatalogFilter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCatalogAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCatalogAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticationCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticationCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAuthenticationCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountInfoDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AccountID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountInfoDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountInfoDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SetAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextToRender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PixelWidth" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Quality" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WaterMarkType" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SetAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextToRender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PixelWidth" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Quality" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WaterMarkType" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSealedUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ParamString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSealedUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSealedUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSealedUrlAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ParamString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSealedUrlAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSealedUrlAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrlAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SetAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextToRender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PixelWidth" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Quality" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="WaterMarkType" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrlAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageUrlAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrlDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SetAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextToRender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PixelWidth" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Quality" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="WaterMarkType" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageUrlDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageUrlDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteJobByOrderID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteJobByOrderIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteJobByOrderIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAllByAcccountID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAllByAcccountIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteAllByAcccountIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelJobOrderDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelJobOrderDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelJobOrderDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ImagesXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrderAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ImagesXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrderAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceOrderAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrderDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ImagesXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceOrderDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceOrderDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobStatusAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobStatusDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusPercentDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusPercentDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobStatusPercentDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableSetListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableSetListAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableSetListDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableSetListXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListXMLAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableSetListXMLAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableSetListXMLAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableDocListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocListDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocListDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableDocListDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocListAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDocListAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableDocListAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceWorkflowOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgComXML" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExtOrderNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExtOrderItemID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceWorkflowOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceWorkflowOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgComXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDocResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDocPrio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgComXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDocPrioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDocPrioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDocDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgComXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDocDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDocDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestartJob">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestartJobResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RestartJobResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocOrderByDocID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocOrderByDocIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteDocOrderByDocIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocOrderByDocIDDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocOrderByDocIDDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteDocOrderByDocIDDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocStatusDSM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocStatusDSMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocStatusDSMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEmailTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Recipients" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReplyTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TemplateAlias" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgCom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Html" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEmailTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendEmailTemplateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocDataInterfaceURL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocDataInterfaceURLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocDataInterfaceURLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDhttList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDhttListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableDhttListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDhttListAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticationCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableDhttListAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableDhttListAuthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetdHttUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dHttAlias" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetdHttUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetdHttUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocAttributes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentAlias" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocAttributesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocAttributesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGeneratorSystemInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetGeneratorSystemInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGeneratorSystemInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Workflow_GetOrderState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Workflow_GetOrderStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Workflow_GetOrderStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetInterfaceVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInterfaceVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetInterfaceVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInterfaceVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInterfaceVersionExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInterfaceVersionExt" />
+  </wsdl:message>
+  <wsdl:message name="GetInterfaceVersionExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInterfaceVersionExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateSoapIn">
+    <wsdl:part name="parameters" element="tns:Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDSMIAccountsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDSMIAccounts" />
+  </wsdl:message>
+  <wsdl:message name="GetDSMIAccountsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDSMIAccountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateDSM" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTags" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTagsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTagsAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTagsAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTagsDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetTagsDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTagsDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCatalogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCatalog" />
+  </wsdl:message>
+  <wsdl:message name="GetCatalogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCatalogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCatalogAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCatalogAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetCatalogAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCatalogAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticationCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationCode" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticationCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImage" />
+  </wsdl:message>
+  <wsdl:message name="GetImageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSealedUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSealedUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetSealedUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSealedUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSealedUrlAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSealedUrlAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetSealedUrlAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSealedUrlAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageUrlAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageUrlAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageUrlDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetImageUrlDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageUrlDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteJobByOrderIDSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteJobByOrderID" />
+  </wsdl:message>
+  <wsdl:message name="DeleteJobByOrderIDSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteJobByOrderIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAllByAcccountIDSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAllByAcccountID" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAllByAcccountIDSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAllByAcccountIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelJobOrderDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelJobOrderDSM" />
+  </wsdl:message>
+  <wsdl:message name="CancelJobOrderDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelJobOrderDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceOrder" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceOrderAuth" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceOrderAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceOrderDSM" />
+  </wsdl:message>
+  <wsdl:message name="PlaceOrderDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceOrderDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobStatusAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobStatusAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobStatusDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobStatusDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusPercentDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobStatusPercentDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusPercentDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobStatusPercentDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetList" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListXML" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListXMLAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListXMLAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableSetListXMLAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableSetListXMLAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocList" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocListDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocListDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocListAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDocListAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableDocListAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceWorkflowOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceWorkflowOrder" />
+  </wsdl:message>
+  <wsdl:message name="PlaceWorkflowOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceWorkflowOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartDocSoapIn">
+    <wsdl:part name="parameters" element="tns:StartDoc" />
+  </wsdl:message>
+  <wsdl:message name="StartDocSoapOut">
+    <wsdl:part name="parameters" element="tns:StartDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartDocPrioSoapIn">
+    <wsdl:part name="parameters" element="tns:StartDocPrio" />
+  </wsdl:message>
+  <wsdl:message name="StartDocPrioSoapOut">
+    <wsdl:part name="parameters" element="tns:StartDocPrioResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartDocDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:StartDocDSM" />
+  </wsdl:message>
+  <wsdl:message name="StartDocDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:StartDocDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="RestartJobSoapIn">
+    <wsdl:part name="parameters" element="tns:RestartJob" />
+  </wsdl:message>
+  <wsdl:message name="RestartJobSoapOut">
+    <wsdl:part name="parameters" element="tns:RestartJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocOrderByDocIDSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocOrderByDocID" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocOrderByDocIDSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocOrderByDocIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocOrderByDocIDDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocOrderByDocIDDSM" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocOrderByDocIDDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocOrderByDocIDDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetDocStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocStatusDSMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocStatusDSM" />
+  </wsdl:message>
+  <wsdl:message name="GetDocStatusDSMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocStatusDSMResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendEmailTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:SendEmailTemplate" />
+  </wsdl:message>
+  <wsdl:message name="SendEmailTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:SendEmailTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocDataInterfaceURLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocDataInterfaceURL" />
+  </wsdl:message>
+  <wsdl:message name="GetDocDataInterfaceURLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocDataInterfaceURLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDhttListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableDhttList" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDhttListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableDhttListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDhttListAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableDhttListAuth" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableDhttListAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableDhttListAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetdHttUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetdHttUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetdHttUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetdHttUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocAttributesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocAttributes" />
+  </wsdl:message>
+  <wsdl:message name="GetDocAttributesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocAttributesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratorSystemInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGeneratorSystemInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratorSystemInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGeneratorSystemInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Workflow_GetOrderStateSoapIn">
+    <wsdl:part name="parameters" element="tns:Workflow_GetOrderState" />
+  </wsdl:message>
+  <wsdl:message name="Workflow_GetOrderStateSoapOut">
+    <wsdl:part name="parameters" element="tns:Workflow_GetOrderStateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LBSoap">
+    <wsdl:operation name="GetInterfaceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the assembly name and version of the DSMO webservice interface in Major.Minor.Revision format.</wsdl:documentation>
+      <wsdl:input message="tns:GetInterfaceVersionSoapIn" />
+      <wsdl:output message="tns:GetInterfaceVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInterfaceVersionExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the version of the DSMO webservice interface in Major.Minor.Revision format.</wsdl:documentation>
+      <wsdl:input message="tns:GetInterfaceVersionExtSoapIn" />
+      <wsdl:output message="tns:GetInterfaceVersionExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Standard Authentication. Initiates a session. All mathod names that don't end with -Auth or -DSM demand a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:AuthenticateSoapIn" />
+      <wsdl:output message="tns:AuthenticateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDSMIAccounts">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DSM internal returns either an XML document representing a list of accounts, a dedicated account or an error message beginning with ERR:....</wsdl:documentation>
+      <wsdl:input message="tns:GetDSMIAccountsSoapIn" />
+      <wsdl:output message="tns:GetDSMIAccountsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DSM internal Authentication.</wsdl:documentation>
+      <wsdl:input message="tns:AuthenticateDSMSoapIn" />
+      <wsdl:output message="tns:AuthenticateDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTags">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of all Tags of the DSMO catalog. The method returns a string of tags delemited by the pipe symbol.</wsdl:documentation>
+      <wsdl:input message="tns:GetTagsSoapIn" />
+      <wsdl:output message="tns:GetTagsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of all Tags of the DSMO catalog. The method returns a string of tags delemited by the pipe symbol.</wsdl:documentation>
+      <wsdl:input message="tns:GetTagsAuthSoapIn" />
+      <wsdl:output message="tns:GetTagsAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of all Tags of the DSMO catalog. The method returns a string of tags delemited by the pipe symbol.</wsdl:documentation>
+      <wsdl:input message="tns:GetTagsDSMSoapIn" />
+      <wsdl:output message="tns:GetTagsDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalog">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a XML representation of the DSMO items catalog.</wsdl:documentation>
+      <wsdl:input message="tns:GetCatalogSoapIn" />
+      <wsdl:output message="tns:GetCatalogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a XML representation of the DSMO items catalog.</wsdl:documentation>
+      <wsdl:input message="tns:GetCatalogAuthSoapIn" />
+      <wsdl:output message="tns:GetCatalogAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates and returns an unique AuthenticationCode for a specific DirectSmile Integration Server user. The returned Code can be passed to each method that method name ends with -Auth. You can call these methods directly without calling the Autenticate method upfront.</wsdl:documentation>
+      <wsdl:input message="tns:GetAuthenticationCodeSoapIn" />
+      <wsdl:output message="tns:GetAuthenticationCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfoDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns advanced LPM specific settings to an DSMO account.</wsdl:documentation>
+      <wsdl:input message="tns:GetAccountInfoDSMSoapIn" />
+      <wsdl:output message="tns:GetAccountInfoDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a byte array of an requested image. This is a synchronous call.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageSoapIn" />
+      <wsdl:output message="tns:GetImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an URL to a rendered image. This is a synchronous call.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageUrlSoapIn" />
+      <wsdl:output message="tns:GetImageUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Seals a url. The method uses either a predefined user or account key to seal the url. The paramstring might contain the handler or not.</wsdl:documentation>
+      <wsdl:input message="tns:GetSealedUrlSoapIn" />
+      <wsdl:output message="tns:GetSealedUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrlAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Seals a url. The method uses either a predefined user or account key to seal the url. The paramstring might contain the handler or not. You must provide a valid AuthenticationCode</wsdl:documentation>
+      <wsdl:input message="tns:GetSealedUrlAuthSoapIn" />
+      <wsdl:output message="tns:GetSealedUrlAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Method is simular to the GetImageUrl, but You do not need to call the Authenticate method before you call this Method. Please pass only the AuthenticationCode. You can get an AuthenticationCode by calling the GetAuthenticationCode Method.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageUrlAuthSoapIn" />
+      <wsdl:output message="tns:GetImageUrlAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method is simular to the GetImageUrl.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageUrlDSMSoapIn" />
+      <wsdl:output message="tns:GetImageUrlDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancels an image order, requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteJobByOrderIDSoapIn" />
+      <wsdl:output message="tns:DeleteJobByOrderIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllByAcccountID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancels all running jobs for the requesting account, requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteAllByAcccountIDSoapIn" />
+      <wsdl:output message="tns:DeleteAllByAcccountIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderIDDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, simular to the CancelOrder method.</wsdl:documentation>
+      <wsdl:input name="CancelJobOrderDSM" message="tns:CancelJobOrderDSMSoapIn" />
+      <wsdl:output name="CancelJobOrderDSM" message="tns:CancelJobOrderDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a JobOrder XML to the Backend, requires a valid session</wsdl:documentation>
+      <wsdl:input message="tns:PlaceOrderSoapIn" />
+      <wsdl:output message="tns:PlaceOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a JobOrder XML to the Backend, requires authenticationcode</wsdl:documentation>
+      <wsdl:input message="tns:PlaceOrderAuthSoapIn" />
+      <wsdl:output message="tns:PlaceOrderAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, simular to PlaceOrder</wsdl:documentation>
+      <wsdl:input message="tns:PlaceOrderDSMSoapIn" />
+      <wsdl:output message="tns:PlaceOrderDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the status of a backend JobOrder, requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:GetJobStatusSoapIn" />
+      <wsdl:output message="tns:GetJobStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the status of a backend JobOrder, requires an authenticationcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetJobStatusAuthSoapIn" />
+      <wsdl:output message="tns:GetJobStatusAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, similar to GetjobStatus.</wsdl:documentation>
+      <wsdl:input message="tns:GetJobStatusDSMSoapIn" />
+      <wsdl:output message="tns:GetJobStatusDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusPercentDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the progress of Backend JobOrder in percent. This method is depricated, because the GetJobStatus includes a Percent attribute now.</wsdl:documentation>
+      <wsdl:input message="tns:GetJobStatusPercentDSMSoapIn" />
+      <wsdl:output message="tns:GetJobStatusPercentDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a comma seperated list of available Sets. This function is depricated, please use the GetAvailableSetListXML instead. Requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableSetListSoapIn" />
+      <wsdl:output message="tns:GetAvailableSetListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Method is simular to the GetAvailableSetList, requires an authenticationcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableSetListAuthSoapIn" />
+      <wsdl:output message="tns:GetAvailableSetListAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, simular to GetAvailableSetList.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableSetListDSMSoapIn" />
+      <wsdl:output message="tns:GetAvailableSetListDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Generates a xml based list of available DirectSmile Sets, requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableSetListXMLSoapIn" />
+      <wsdl:output message="tns:GetAvailableSetListXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXMLAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Generates a xml based list of available DirectSmile Sets, requires an AuthenticationCode.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableSetListXMLAuthSoapIn" />
+      <wsdl:output message="tns:GetAvailableSetListXMLAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a xml based list of available documents, including urls to thumbnails and datainterfaces.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableDocListSoapIn" />
+      <wsdl:output message="tns:GetAvailableDocListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, similar to GetAvailableDocList.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableDocListDSMSoapIn" />
+      <wsdl:output message="tns:GetAvailableDocListDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a xml based list of available documents, including urls to thumbnails and datainterfaces. Requires authenticationcode</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableDocListAuthSoapIn" />
+      <wsdl:output message="tns:GetAvailableDocListAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceWorkflowOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a JobOrder XML to the Workflow, requires a valid session</wsdl:documentation>
+      <wsdl:input message="tns:PlaceWorkflowOrderSoapIn" />
+      <wsdl:output message="tns:PlaceWorkflowOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartDoc">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sends a document rendering request to the Backend. This a an asynchronous call. The method returns a serialized DocumentStatusReport object.</wsdl:documentation>
+      <wsdl:input message="tns:StartDocSoapIn" />
+      <wsdl:output message="tns:StartDocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartDocPrio">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sends a document rendering request to the Backend. This a an synchronous call. The method returns a serialized DocumentStatusReport object.</wsdl:documentation>
+      <wsdl:input message="tns:StartDocPrioSoapIn" />
+      <wsdl:output message="tns:StartDocPrioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartDocDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, simular to StartDoc.</wsdl:documentation>
+      <wsdl:input message="tns:StartDocDSMSoapIn" />
+      <wsdl:output message="tns:StartDocDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestartJob">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restarts a job stored in the database, requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:RestartJobSoapIn" />
+      <wsdl:output message="tns:RestartJobSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sends a cancel request to the backend, to cancel the processing of a specified document. Requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteDocOrderByDocIDSoapIn" />
+      <wsdl:output message="tns:DeleteDocOrderByDocIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocIDDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, simular to the CancelDoc.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteDocOrderByDocIDDSMSoapIn" />
+      <wsdl:output message="tns:DeleteDocOrderByDocIDDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a serialized DocStatusReport object, which contains progress information of the processing of document request. Requires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocStatusSoapIn" />
+      <wsdl:output message="tns:GetDocStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatusDSM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">DirectSmile internal method, similar to GetDoStatus.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocStatusDSMSoapIn" />
+      <wsdl:output message="tns:GetDocStatusDSMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailTemplate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sends an Email containing a Template or html content. The SessionID parameter is included to stay backward compatible, it is not used in the method.</wsdl:documentation>
+      <wsdl:input message="tns:SendEmailTemplateSoapIn" />
+      <wsdl:output message="tns:SendEmailTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocDataInterfaceURL">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an URL to the Interface description of a DirectSmile Document. Reuqires a valid session.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocDataInterfaceURLSoapIn" />
+      <wsdl:output message="tns:GetDocDataInterfaceURLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Generates a commaseperated list of available LandingPage templates. This function is deprecated, please use the GetAvailableDhttListXML instead. The SessionID is included to stay backward compatible, it is not used in the method.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableDhttListSoapIn" />
+      <wsdl:output message="tns:GetAvailableDhttListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttListAuth">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Method is simular to the GetAvailableDhttListAuth, but You do not need to call the Authenticate method before you call this Method. Please pass only the AuthenticationCode. You can get an AuthenticationCode by calling the GetAuthenticationCode Method.</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableDhttListAuthSoapIn" />
+      <wsdl:output message="tns:GetAvailableDhttListAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetdHttUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an URl to Html Document Template. The SessionID parameter is included to stay backward compatible, it is not used in the method.</wsdl:documentation>
+      <wsdl:input message="tns:GetdHttUrlSoapIn" />
+      <wsdl:output message="tns:GetdHttUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocAttributes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns extended attributes of a DirectSmile Document.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocAttributesSoapIn" />
+      <wsdl:output message="tns:GetDocAttributesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratorSystemInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns information about the Generator, like the SystemID and available licenses, in XML format.</wsdl:documentation>
+      <wsdl:input message="tns:GetGeneratorSystemInfoSoapIn" />
+      <wsdl:output message="tns:GetGeneratorSystemInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Workflow_GetOrderState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get production state for given order</wsdl:documentation>
+      <wsdl:input message="tns:Workflow_GetOrderStateSoapIn" />
+      <wsdl:output message="tns:Workflow_GetOrderStateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LBSoap" type="tns:LBSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInterfaceVersion">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetInterfaceVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInterfaceVersionExt">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetInterfaceVersionExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDSMIAccounts">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetDSMIAccounts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/AuthenticateDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTags">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetTags" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetTagsAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetTagsDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalog">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetCatalog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetCatalogAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationCode">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAuthenticationCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfoDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAccountInfoDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImage">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrl">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrl">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetSealedUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrlAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetSealedUrlAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrlAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrlDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderID">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteJobByOrderID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllByAcccountID">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteAllByAcccountID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderIDDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/CancelJobOrderDSM" style="document" />
+      <wsdl:input name="CancelJobOrderDSM">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CancelJobOrderDSM">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrder">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrderAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrderDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatus">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusPercentDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusPercentDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetList">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXML">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXMLAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListXMLAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocList">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocListDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocListAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceWorkflowOrder">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceWorkflowOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDoc">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/StartDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDocPrio">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/StartDocPrio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDocDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/StartDocDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartJob">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/RestartJob" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocID">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteDocOrderByDocID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocIDDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteDocOrderByDocIDDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatus">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatusDSM">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocStatusDSM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailTemplate">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/SendEmailTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocDataInterfaceURL">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocDataInterfaceURL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttList">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDhttList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttListAuth">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDhttListAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetdHttUrl">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetdHttUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocAttributes">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocAttributes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratorSystemInfo">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/GetGeneratorSystemInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Workflow_GetOrderState">
+      <soap:operation soapAction="http://www.directsmile.de/GenService/LB/Workflow_GetOrderState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LBSoap12" type="tns:LBSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInterfaceVersion">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetInterfaceVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInterfaceVersionExt">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetInterfaceVersionExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/Authenticate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDSMIAccounts">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetDSMIAccounts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/AuthenticateDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTags">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetTags" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetTagsAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagsDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetTagsDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalog">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetCatalog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetCatalogAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationCode">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAuthenticationCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfoDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAccountInfoDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImage">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrl">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrl">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetSealedUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSealedUrlAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetSealedUrlAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrlAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageUrlDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetImageUrlDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderID">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteJobByOrderID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllByAcccountID">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteAllByAcccountID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJobByOrderIDDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/CancelJobOrderDSM" style="document" />
+      <wsdl:input name="CancelJobOrderDSM">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CancelJobOrderDSM">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrder">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrderAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceOrderDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceOrderDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatus">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobStatusPercentDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetJobStatusPercentDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetList">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXML">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableSetListXMLAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableSetListXMLAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocList">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocListDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDocListAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDocListAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceWorkflowOrder">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/PlaceWorkflowOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDoc">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/StartDoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDocPrio">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/StartDocPrio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDocDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/StartDocDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartJob">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/RestartJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocID">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteDocOrderByDocID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocOrderByDocIDDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/DeleteDocOrderByDocIDDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatus">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocStatusDSM">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocStatusDSM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailTemplate">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/SendEmailTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocDataInterfaceURL">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocDataInterfaceURL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttList">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDhttList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableDhttListAuth">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetAvailableDhttListAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetdHttUrl">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetdHttUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocAttributes">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetDocAttributes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratorSystemInfo">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/GetGeneratorSystemInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Workflow_GetOrderState">
+      <soap12:operation soapAction="http://www.directsmile.de/GenService/LB/Workflow_GetOrderState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LB">
+    <wsdl:port name="LBSoap" binding="tns:LBSoap">
+      <soap:address location="http://dev.directsmile.com/dsmo/lb.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LBSoap12" binding="tns:LBSoap12">
+      <soap12:address location="http://dev.directsmile.com/dsmo/lb.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
