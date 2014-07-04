@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--
+    ======= DirectSmile DSMI Samples =====
+    This example shows how to send an HTTP post request, containing a MsgComXml object, to the streamdocument HTTP interface 
+    to get a DirectSmile Document processed by the DirectSmile Integration Server.
+
+    This is a two step approach. First we prepare and send out a POST request in the postDocumentRequest method. 
+    Then we read out the document's unique Id from the result and take the id to continously request progress updates 
+    from DSMI by calling the updateDocProcessingStatus method.
+    
+    === MsgComXml ===
+    MsgComXml is a document/production manipulation language in XML format. The MsgComXml is thoroughly covered in DSMI Interfaces documentation.
+
+    === DSMI Handlers ===
+    We utilize two handlers provided by DSMI:
+    The streamdocument handler accepts document processing requests (GET || POST).
+    The documenthandler handler accepts document processing status status (GET).
+
+    === Result objects ===
+    Both DSMI handlers, the streamdocument and the documenthandler return DocStatusResult object in JSON format.
+    The DocStatusResult object is thoroughly covered in DSMI Interfaces documentation.
+    
+    === General ===
+    Please register at http://dsmx1.com/developers to get full API documentation.
+
+    (c) DirectSmile Development UG, Berlin 2014
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Requesting DirectSmile Documents using jQuery and HTTP handlers</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript">
+
+        var wsUrl = 'http://' + location.host + '/dsmo/streamdocument',
+            progressHandlerUrl = 'http://' + location.host + '/dsmo/documentHandler?cmd=getprogress&DocUniqueID=';
+
+        // Sends a POST request to the streamdocument interface
+        function postDocumentRequest(event) {
+            var formData = 'u=' + $("#txtUsername").val() + '&p=' + $("#txtPassword").val() + '&queue=async&doc=' + $("#txtDocAlias").val() + '&-Name%20in%20Image=&-name=';
+            var msgCom = $("#txtMsgComXml").val();
+            if (msgCom != "") {
+                formData = formData + "&msgcom=" + msgCom;
+            }
+            $.ajax({
+                url: wsUrl,
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                success: function (data, status, req) {
+                    docUniqueId = data["Key"]; //<-- beware upper case property names coming from the DSMI backend!
+                    // Okay, the document request is queued and we got a key back
+                    // Now we can ask for a progress
+                    if (docUniqueId != null && docUniqueId !== undefined) {
+                        updateDocProcessingStatus(docUniqueId);
+                    }
+
+                },
+                error: function (data, status, req) {
+                    alert(req.responseText + " " + status);
+                }
+            });
+        }
+
+        // Get progress status updates from DSMI 
+        function updateDocProcessingStatus(docUniqueId) {
+            var url = progressHandlerUrl + docUniqueId;
+            $.getJSON(url, function (data) {
+                if (data["State"] == 2) { //  DocProgressStateE.failed
+                    $("#response").html(data["LastErrorMsg"]);
+                } else if (data["State"] == 3 || data["State"] == 4) { // DocProgressStateE.Done or DocProgressStateE.Done_With_Error_Xml
+                    if (data["PDFUrl"].endsWith(".pdf")) {
+                        $("#response").html(data["PDFUrl"]);
+                    } else {
+                        window.setTimeout(function () {
+                            updateDocProcessingStatus(docUniqueId);
+                        }, 1000);
+                    }
+                } else {
+                    $("#response").html(data["LastProgressMsg"] + "  (" + data["LastProgressPercent"] + " %)");
+                    window.setTimeout(function () {
+                        updateDocProcessingStatus(docUniqueId);
+                    }, 1000);
+                }
+            });
+        }
+
+        // string manipulation helper
+        String.prototype.endsWith = function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+
+        // Bind some events at on page load
+        $(document).ready(function () {
+            $("#btnProcessDocument").click(function (event) { postDocumentRequest(event); });
+        });
+
+    </script>
+    <style>
+        fieldset {
+            margin: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <h3>
+        Requesting DirectSmile Documents using jQuery and HTTP handlers
+    </h3>
+    Enter username, password and document alias:
+    <fieldset>
+        <legend>Authentication parameters</legend>
+        <label for="txtUsername">Username</label><br />
+        <input id="txtUsername" type="text" value="help" /><br/><br />
+        <label for="txtPassword">Password</label><br />
+        <input id="txtPassword" type="password" value="help" />
+    </fieldset>
+    <fieldset>
+        <legend>Document Parameters</legend>
+        <label for="txtDocAlias">Document Alias</label><br />
+        <input id="txtDocAlias" type="text" value="CalendarV3" /><br /><br />
+        <label for="txtMsgComXml">MsgComXml data</label><br />
+        <textarea id="txtMsgComXml" rows="10" style="width: 600px;height:400px;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Command&gt;
+&lt;Parameters&gt;
+&lt;FandV FieldName=&quot;OUTPUT&quot; FieldValue=&quot;PDFPREVIEW&quot; /&gt;
+&lt;FandV FieldName=&quot;JPGCOMPRESSION&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;CONVERTTO&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;OutputPagePixWidth&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;PAGERANGE&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;IMPPREVIEW&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;SUPPRESSSETIMAGECROPPING&quot; FieldValue=&quot;&quot; /&gt;
+&lt;/Parameters&gt;
+&lt;StaticFields&gt;
+&lt;FandV FieldName=&quot;01NameInPicture&quot; FieldValue=&quot;'my first Document'&quot; /&gt;
+&lt;FandV FieldName=&quot;StartMonth&quot; FieldValue=&quot;'1'&quot; /&gt;
+&lt;FandV FieldName=&quot;mYear&quot; FieldValue=&quot;'2009'&quot; /&gt;
+&lt;FandV FieldName=&quot;zHemisphere&quot; FieldValue=&quot;'North'&quot; /&gt;
+&lt;FandV FieldName=&quot;Claim&quot; FieldValue=&quot;'Printing Emotions'&quot; /&gt;
+&lt;FandV FieldName=&quot;Logo&quot; FieldValue=&quot;'DirectSmile_4c.eps'&quot; /&gt;
+&lt;/StaticFields&gt;
+&lt;/Command&gt;
+        </textarea>
+    </fieldset>
+
+    <input id="btnProcessDocument" value="Process Document" type="button" />
+    <div style="margin-top: 15px" id="response"></div>
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<!--
+    ======= DirectSmile DSMI Samples =====
+    This example shows how to send an HTTP post request to the streamdocument HTTP interface
+    to get a DirectSmile Document processed by the DirectSmile Integration Server.
+
+    This is a two step approach. First we prepare and send out a POST request in the postDocumentRequest method.
+    Then we read out the document's unique Id from the result and take the id to continously request progress updates
+    from DSMI by calling the updateDocProcessingStatus method.
+
+    === DSMI Handlers ===
+    We utilize two handlers provided by DSMI:
+    The streamdocument handler accepts document processing requests (GET || POST).
+    The documenthandler handler accepts document processing status status (GET).
+
+    === Result objects ===
+    Both DSMI handlers, the streamdocument and the documenthandler return DocStatusResult object in JSON format.
+    The DocStatusResult object is thoroughly covered in DSMI Interfaces documentation.
+
+    === General ===
+    Please register at http://dsmx1.com/developers to get full API documentation.
+
+    (c) DirectSmile Development UG, Berlin 2014
+-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Requesting DirectSmile Documents using jQuery and HTTP handlers</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript">
+
+        var wsUrl = 'http://' + location.host + '/dsmo/streamdocument',
+            progressHandlerUrl = 'http://' + location.host + '/dsmo/documentHandler?cmd=getprogress&DocUniqueID=';
+
+        // Sends a POST request to the streamdocument interface  
+        function postDocumentRequest(event) {
+            var formData = 'u=' + $("#txtUsername").val() + '&p=' + $("#txtPassword").val() + '&queue=async&doc=' + $("#txtDocAlias").val() + '&-Name%20in%20Image=&-name=';
+            $.ajax({
+                url: wsUrl,
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                success: function (data, status, req) {
+                    docUniqueId = data["Key"]; //<-- beware upper case property names coming from the DSMI backend!
+                    // Okay, the document request is queued and we got a key back
+                    // Now we can ask for a progress
+                    if (docUniqueId != null && docUniqueId !== undefined) {
+                        updateDocProcessingStatus(docUniqueId);
+                    }
+
+                },
+                error: function (data, status, req) {
+                    alert(req.responseText + " " + status);
+                }
+            });
+        }
+
+        // Get progress status updates from DSMI 
+        function updateDocProcessingStatus(docUniqueId) {
+            var url = progressHandlerUrl + docUniqueId;
+            $.getJSON(url, function (data) {
+                if (data["State"] == 2) { //  DocProgressStateE.failed
+                    $("#response").html(data["LastErrorMsg"]);
+                } else if (data["State"] == 3 || data["State"] == 4) { // DocProgressStateE.Done or DocProgressStateE.Done_With_Error_Xml
+                    if (data["PDFUrl"].endsWith(".pdf")) {
+                        $("#response").html(data["PDFUrl"]);
+                    } else {
+                        window.setTimeout(function () {
+                            updateDocProcessingStatus(docUniqueId);
+                        }, 1000);
+                    }
+                } else {
+                    // print out progress
+                    $("#response").html(data["LastProgressMsg"] + "  (" + data["LastProgressPercent"] + " %)");
+                    window.setTimeout(function () {
+                        updateDocProcessingStatus(docUniqueId);
+                    }, 1000);
+                }
+            });
+        }
+
+        // string manipulation helper
+        String.prototype.endsWith = function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+
+        // Bind some events at on page load
+        $(document).ready(function () {
+            $("#btnProcessDocument").click(function (event) { postDocumentRequest(event); });
+        });
+
+    </script>
+</head>
+<body>
+    <h3>
+        Requesting DirectSmile Documents using jQuery and HTTP handlers
+    </h3>
+    Enter username, password and document alias:
+    <input id="txtUsername" type="text" value="help" />
+    <input id="txtPassword" type="password" value="help" />
+    <input id="txtDocAlias" type="text" value="CalendarV3" />
+    <input id="btnProcessDocument" value="Process Document" type="button" />
+    <div style="margin-top: 15px" id="response"></div>
+</body>
+</html>
+

@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<!--
+    ======= DirectSmile DSMI Samples =====
+    This example shows how to post SOAP requests to the LB.asmx web service interface
+    to get a DirectSmile Document processed by the DirectSmile Integration Server.
+
+    The is a full demo that includes the following steps:
+    
+    1) Authentication against the service
+    2) Get a list of documents of the DSMI account
+    3) Get the document processing started
+    4) Get and print out the processing progress
+    5) Print out the resulting PDF URL
+
+    === Dealing with SOAP ===
+    Sending a SOAP request is basically posting XML documents to the server and parsing the response
+    XML objects returned by the server. Those documents are called SOAP envelopes. The envelopes contain
+    serialized data structures and method names.
+    
+    Any ASP.NET SOAP endpoint provides an API auto-documentation web page that generates sample POST 
+    requests and responses to each available method. 
+
+    === Result objects ===
+    Both DSMI handlers, the streamdocument and the documenthandler return DocStatusResult object in JSON format.
+    The DocStatusResult object is thoroughly covered in DSMI Interfaces documentation.
+
+    === General ===
+    Please register at http://dsmx1.com/developers to get full API documentation.
+
+    (c) DirectSmile Development UG, Berlin 2014
+-->
+
+
+<html>
+<head>
+    <title>Requesting a DirectSmile Document using jQuery and SOAP Web Services</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript">
+
+        // Define some globals
+        var wsUrl = 'http://' + location.host + '/dsmo/lb.asmx', dsmiSessionId = "";
+
+        // Does a call against the DSMI SOAP web service to authenticate.
+        // Service returns a Session Id if authentication was successful
+        function authenticate(event) {
+            var authRequest =
+                '<?xml version="1.0" encoding="utf-8"?> \
+                        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
+                          <soap:Body> \
+                            <Authenticate xmlns="http://www.directsmile.de/GenService/LB"> \
+                              <UserName>' + $("#txtUsername").val() + '</UserName> \
+                              <Password>' + $("#txtPassword").val() + '</Password> \
+                              <Language>en</Language> \
+                            </Authenticate> \
+                          </soap:Body> \
+                        </soap:Envelope>';
+            $.ajax({
+                type: "POST",
+                url: wsUrl,
+                contentType: "text/xml",
+                dataType: "xml",
+                data: authRequest,
+                success: function (data, status, req) {
+                    if (status == "success") {
+                        // Great, let's grep the SessionId from the AuthResult and 
+                        // update out global variable
+                        var result = $(req.responseXML).find("AuthenticateResult").text();
+                        if (result.substr(0, 3) == "ERR") {
+                            alert(result);
+                        } else {
+                            dsmiSessionId = result;
+                        }
+                    }
+                },
+                error: function (data, status, req) {
+                    alert(req.responseText + " " + status);
+                }
+            });
+        }
+
+        // Does a call against the DSMI SOAP web service to get a list of available documents.
+        // The web service method takes the SessionId we got earlier from calling the Authenticate method.
+        // It return an XML document inside the SOAP envelope that contains details about the documents.
+        // In this sample we are only interested in the aliases though.
+        function getDocumentList(event) {
+            if (dsmiSessionId == "") {
+                alert("Please call authenticate first. Invalid sessionId [" + dsmiSessionId + "]");
+                return;
+            };
+
+            var getDocListRequest =
+                '<?xml version="1.0" encoding="utf-8"?> \
+                 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
+                   <soap:Body> \
+                     <GetAvailableDocList xmlns="http://www.directsmile.de/GenService/LB"> \
+                       <SessionID>' + dsmiSessionId + '</SessionID> \
+                     </GetAvailableDocList> \
+                   </soap:Body> \
+                 </soap:Envelope>';
+            $.ajax({
+                type: "POST",
+                url: wsUrl,
+                contentType: "text/xml",
+                dataType: "xml",
+                data: getDocListRequest,
+                success: function (data, status, req) {
+                    if (status == "success") {
+                        var xml = $(req.responseXML).find("GetAvailableDocListResult").text();
+                        $(xml).find("Document").each(function() {
+                            var alias = $(this).attr("Alias");
+                            $("#DocumentAliases").append($('<option></option>').val(alias).html(alias));
+                        });
+                    }
+                },
+                error: function (data, status, req) {
+                    alert(req.responseText + " " + status);
+                }
+            });
+        }
+
+        // Does a call against the DSMI SOAP web service to get a document processed.
+        // The web service call takes the sesison Id, the document alias and a msg com xml.
+        // Because the document proccessing is asynchronous the web service method returns an
+        // XML document that represents the status of document process.  
+        function processDocument(event) {
+			if (dsmiSessionId == "") {
+                alert("Please call authenticate first. Invalid sessionId [" + dsmiSessionId + "]");
+                return;
+            };
+			
+
+            var selectedAlias = $("#DocumentAliases").val();
+			
+			if (!selectedAlias) {
+                alert("Please select a document from the list.");
+                return;
+            };
+			
+            var msgComXml = $("#txtMsgComXml").val();
+            var processDocRequest =
+               '<?xml version="1.0" encoding="utf-8"?> \
+                <soap:Envelope xmlns:xsi="http://www.w3.org/2001/ XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
+                  <soap:Body> \
+                    <StartDoc xmlns="http://www.directsmile.de/GenService/LB"> \
+                      <Sid>' + dsmiSessionId + '</Sid> \
+                      <DocumentAlias>' + selectedAlias + '</DocumentAlias> \
+                      <MsgComXML>' + htmlEncode(msgComXml) + '</MsgComXML> \
+                    </StartDoc> \
+                  </soap:Body> \
+                </soap:Envelope>';
+            $.ajax({
+                type: "POST",
+                url: wsUrl,
+                contentType: "text/xml",
+                dataType: "xml",
+                data: processDocRequest,
+                success: function (data, status, req) {
+                    if (status == "success") {
+                        var statusReport = $.parseXML($(req.responseXML).find("StartDocResult").text());
+                        var jobKey = $(statusReport).find("DSMDocRenderStatus").attr("Key");
+                        getDocRenderProgress(jobKey);
+                    }
+                },
+                error: function (data, status, req) {
+                    alert(req.responseText + " " + status);
+                }
+            });
+
+            // Does a call against the DSMI SOAP web service to get a document processing status information.
+            // The web service call takes the sesison Id, the document (job) key.
+            // Depending on the returned state of the document processing job, a progress message and percentage value
+            // is shown. If the document is finished the URL to the PDF is shown.
+            function getDocRenderProgress(jobKey) {
+                var getDocStatusRequest =
+                '<?xml version="1.0" encoding="utf-8"?> \
+                 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
+                  <soap:Body> \
+                    <GetDocStatus xmlns="http://www.directsmile.de/GenService/LB"> \
+                      <SessionID>' + dsmiSessionId + '</SessionID> \
+                      <Key>' + jobKey + '</Key> \
+                    </GetDocStatus> \
+                  </soap:Body> \
+                </soap:Envelope>';
+                $.ajax({
+                    type: "POST",
+                    url: wsUrl,
+                    contentType: "text/xml",
+                    dataType: "xml",
+                    data: getDocStatusRequest,
+                    success: function (data, status, req) {
+                        if (status == "success") {
+                            var statusReport =  $.parseXML($(req.responseXML).find("GetDocStatusResult").text());
+                            var state = $(statusReport).find("DSMDocRenderStatus").attr("State");
+                            if (state == 2) {
+                                $("#response").html($(statusReport).find("DSMDocRenderStatus").attr("LastErrorMsg"));
+                            } else if (state == 3 || state == 4) {
+                                var pdfUrl = $(statusReport).find("DSMDocRenderStatus").attr("PDFUrl");
+                                if (pdfUrl.endsWith(".pdf")) {
+                                    $("#response").html(pdfUrl);
+                                } else {
+                                    window.setTimeout(function () {
+                                        getDocRenderProgress(jobKey);
+                                    }, 1000);
+                                }
+                            } else {
+                                var lastProgressMsg = $(statusReport).find("DSMDocRenderStatus").attr("LastProgressMsg"),
+                                    lastProgressPercent = $(statusReport).find("DSMDocRenderStatus").attr("LastProgressPercent");
+                                $("#response").html(lastProgressMsg + "  (" + lastProgressPercent + " %)");
+                                window.setTimeout(function () {
+                                    getDocRenderProgress(jobKey);
+                                }, 1000);
+                            }
+                        }
+                    },
+                    error: function (data, status, req) {
+                        alert(req.responseText + " " + status);
+                    }
+                });
+            }
+
+        }
+
+        function htmlEncode(value) {
+            //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+            //then grab the encoded contents back out.  The div never exists on the page.
+            return $('<div/>').text(value).html();
+        }
+
+        // string manipulation helper
+        String.prototype.endsWith = function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+
+
+        // Bind some events at on page load
+        $(document).ready(function () {
+            $("#btnAuthenticate").click(function (event) { authenticate(event); });
+            $("#btnGetDocumentList").click(function (event) { getDocumentList(event); });
+            $("#btnProcessDocument").click(function (event) { processDocument(event); });
+        });
+
+    </script>
+	<style>
+		fieldset {margin: 20px; padding: 10px; background: #EEFEEF;}
+		label {display: block; margin-bottom: 2px; margin-top: 15px;}
+	</style>
+</head>
+       <body>
+            <h3>
+                Requesting a DirectSmile Document using jQuery and SOAP Web Services
+            </h3>
+            Enter username, password and document alias:
+            <fieldset>
+                <legend>Authentication parameters</legend>
+                <label for="txtUsername">Username</label> 
+                <input id="txtUsername" type="text" value="help" /> 
+                <label for="txtPassword">Password</label>
+                <input id="txtPassword" type="password" value="help" /> </br></br>
+		 
+					<input id="btnAuthenticate" value="Step 1: Call Authenticate" type="button" />
+			 
+            </fieldset>
+            <fieldset>
+                <legend>Retrieving a list of available documents</legend>
+                <input id="btnGetDocumentList" value="Step 2: Call GetAvialableDocumentList" type="button" /><br/>
+                <label for="">Please Select "CalendarV3":</label> 
+				<select id="DocumentAliases"></select>
+            </fieldset>
+            <fieldset>
+                <legend>Document Parameters</legend>
+                <label for="txtMsgComXml">MsgComXml data</label><br />
+                <textarea id="txtMsgComXml" rows="10" style="width: 600px;height:400px;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Command&gt;
+&lt;Parameters&gt;
+&lt;FandV FieldName=&quot;OUTPUT&quot; FieldValue=&quot;PDFPREVIEW&quot; /&gt;
+&lt;FandV FieldName=&quot;JPGCOMPRESSION&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;CONVERTTO&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;OutputPagePixWidth&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;PAGERANGE&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;IMPPREVIEW&quot; FieldValue=&quot;&quot; /&gt;
+&lt;FandV FieldName=&quot;SUPPRESSSETIMAGECROPPING&quot; FieldValue=&quot;&quot; /&gt;
+&lt;/Parameters&gt;
+&lt;StaticFields&gt;
+&lt;FandV FieldName=&quot;01NameInPicture&quot; FieldValue=&quot;'my first Document'&quot; /&gt;
+&lt;FandV FieldName=&quot;StartMonth&quot; FieldValue=&quot;'1'&quot; /&gt;
+&lt;FandV FieldName=&quot;mYear&quot; FieldValue=&quot;'2009'&quot; /&gt;
+&lt;FandV FieldName=&quot;zHemisphere&quot; FieldValue=&quot;'North'&quot; /&gt;
+&lt;FandV FieldName=&quot;Claim&quot; FieldValue=&quot;'Printing Emotions'&quot; /&gt;
+&lt;FandV FieldName=&quot;Logo&quot; FieldValue=&quot;''&quot; /&gt;
+&lt;/StaticFields&gt;
+&lt;/Command&gt;
+                </textarea></br></br>
+				<input id="btnProcessDocument" value="Step 3: Process Document" type="button" />
+            </fieldset>
+            
+            <div style="margin-top: 15px" id="response"></div>
+        </body>
+</html>
