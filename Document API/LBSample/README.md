@@ -1,4 +1,4 @@
-# LBSample.sln
+# LBSample
 
 Sample code in C# and VB.NET demonstrates the use of Web Services to render personalised documents.
 
